@@ -5,7 +5,7 @@ var writeController = require('../controllers/writeController'); // 61p
 
 router.get('/', listController.getListFirst);
 router.get('/list/:idx', listController.getList);
-router.get('/write', writeController.writeForm);
+router.get('/write', writeController.writeForm); // 61p
 router.post('/write', writeController.writeData); // 61p
 
 module.exports=router;
