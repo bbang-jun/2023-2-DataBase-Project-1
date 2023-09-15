@@ -4,8 +4,8 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    databse: 'tutorial'
-});
+    database: 'tutorial'
+  });
 
 module.exports={getList(callback){
     connection.query('SELECT idx, creator_id, title, hit FROM board', (err, rows, fields)=>{
