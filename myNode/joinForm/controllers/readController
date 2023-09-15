@@ -1,7 +1,7 @@
 var readModel=require('../models/readModel');
 var express=require('express');
 
-module.export={
+module.exports={
     readData: function (req, res, next){
         var idx = req.params.idx;
         readModel.getData(idx,(row)=>{
