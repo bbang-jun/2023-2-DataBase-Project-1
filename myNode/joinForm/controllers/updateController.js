@@ -1,4 +1,4 @@
-var readModel=require('../models/updateModel');
+var updateModel=require('../models/updateModel');
 var express=require('express');
 var url = require('url');
 
@@ -22,7 +22,7 @@ exports.updateData=(req,res)=>{
     var datas = [creator_id, title, content, idx, passwd];
     console.log("data : ", datas);
     console.log(JSON.stringify(req.body));
-    updataModel.updateData(datas,(result)=>{
+    updateModel.updateData(datas,(result)=>{
         if(result.affectedRows == 0){
             res.send("<script>alert('패스워드가 일치하지 않거나, 잘못된 요청으로 인해 변경되지 않았습니다.');history.back();</script>");
         }
