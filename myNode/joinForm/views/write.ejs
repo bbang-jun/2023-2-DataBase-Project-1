@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1><%= title %></h1>
-        <form action="/board/write" method="post" onsubmit="return onWriteSubmit()">
+        <form action="/board/write" method="post" onsubmit="return onWriteSubmit()" enctype="multipart/form-data">
             <table border="1">
                 <tr>
                     <td>작성자</td>
@@ -22,6 +22,10 @@
                     <td><textarea name="content" id="content" cols="30" rows="10" required></textarea></td>
                 </tr>
                 <tr>
+                    <td>이미지</td>
+                    <td><input type="file" name="image" id="image" accept="image/*" /></td>
+                </tr>
+                <tr>
                     <td>패스워드</td>
                     <td><input type="password" name="passwd" id="passwd" required/></td>
                 </tr>
@@ -33,34 +37,34 @@
             </table>
         </form>
         <script>
-            function onWriteSubmit(){
-                if ( $("#creator_id").val().trim() == ""){
+            function onWriteSubmit() {
+                if ($("#creator_id").val().trim() == "") {
                     var message = "아이디를 입력해 주세요.";
                     $("#creator_id").val("");
                     $("#creator_id").focus();
                     alert(message);
-                    return nfalse;
+                    return false;
                 }
-                if ( $("#title").val().trim() == ""){
-                    var message = "제목 입력해 주세요.";
+                if ($("#title").val().trim() == "") {
+                    var message = "제목을 입력해 주세요.";
                     $("#title").val("");
                     $("#title").focus();
                     alert(message);
-                    return nfalse;
+                    return false;
                 }
-                if ( $("#content").val().trim() == ""){
+                if ($("#content").val().trim() == "") {
                     var message = "본문 내용을 입력해 주세요.";
                     $("#content").val("");
                     $("#content").focus();
                     alert(message);
-                    return nfalse;
+                    return false;
                 }
-                if ( $("#passwd").val().trim() == ""){
+                if ($("#passwd").val().trim() == "") {
                     var message = "패스워드를 입력해 주세요.";
                     $("#passwd").val("");
                     $("#passwd").focus();
                     alert(message);
-                    return nfalse;
+                    return false;
                 }
             }
         </script>
