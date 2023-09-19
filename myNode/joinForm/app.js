@@ -19,7 +19,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets'))); // 404 error 방지
+app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts'))); // 404 에러 방지
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
