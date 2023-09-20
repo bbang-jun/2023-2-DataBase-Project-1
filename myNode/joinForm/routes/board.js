@@ -13,5 +13,6 @@ router.post('/write', writeController.writeData); // 61p
 router.get('/read/:idx', readController.readData); // 68p
 router.get('/update', updateController.updateForm); // 74p
 router.post('/update', multer().none(), (req,res)=>{updateController.updateData(req, res)}); // 74p
+router.post('/delete', readController.deletePost); // POST 요청에 대한 deletePost 컨트롤러를 연결합니다.
 
 module.exports=router;

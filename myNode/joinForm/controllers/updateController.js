@@ -19,7 +19,7 @@ exports.updateData=(req,res)=>{
     var title = req.body.title;
     var content = req.body.content;
     var passwd = req.body.passwd;
-    var datas = [creator_id, title, content, idx, passwd];
+    var datas = [creator_id, title, content, idx, passwd, image_path];
     console.log("data : ", datas);
     console.log(JSON.stringify(req.body));
     updateModel.updateData(datas,(result)=>{
