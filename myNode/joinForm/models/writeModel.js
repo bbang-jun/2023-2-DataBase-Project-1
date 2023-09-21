@@ -29,7 +29,7 @@ module.exports = {
         // datas 배열의 다섯 번째 요소는 이미지 파일 이름이 됩니다.
         // 여기에서 "public\\"를 제거하여 저장합니다.
         datas[4] = datas[4].replace("public\\", "");
-
+        console.log("=====================" + datas[0] +" "+datas[1]+" "+datas[2]+ " " +datas[3] +" "+ datas[4] )
         var sql = "INSERT INTO board(creator_id, title, content, passwd, image_path) VALUES(?,?,?,?,?)";
         connection.query(sql, datas, function (err, rows) {
             if (err) console.error("err : " + err);

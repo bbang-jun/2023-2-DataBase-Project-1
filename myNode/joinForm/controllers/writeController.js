@@ -21,6 +21,8 @@ exports.writeData=(req,res)=>{
         var image_path = req.file ? req.file.path : null; // 이미지 경로 가져오기
 
         var datas = [creator_id, title, content, passwd, image_path];
+        console.log("writeController data : ", datas);
+        console.log(JSON.stringify(req.body));
         writeModel.insertData(datas, () => {
             res.redirect('/board');
         });
