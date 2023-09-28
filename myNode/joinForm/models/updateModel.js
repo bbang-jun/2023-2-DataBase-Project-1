@@ -31,7 +31,26 @@ exports.getData = (idx, callback) => {
     });
 };
 
+var fs = require('fs'); // 파일 시스템 모듈 추가
+
 exports.updateData = (datas, callback) =>{
+
+    connection.query('SELECT image_path FROM board WHERE idx=?;', datas[3], (err, row, fields) => {
+        const imagePath = row[0].image_path;
+        fs.unlink('public/' + imagePath, (unlinkErr) => {
+            if (unlinkErr) {
+                console.error("이미지 파일 삭제 실패: " + unlinkErr);
+                callback(unlinkErr); // 이미지 파일 삭제 실패 시 에러를 콜백으로 전달
+            } else {
+                console.log("이미지 파일 삭제 성공");
+            }
+        });
+        //if (err) throw err;
+        //callback(row);
+        
+    });
+
+
     datas[5] = datas[5].replace("public\\", "");
     console.log("=====================" + datas[0] +" "+datas[1]+" "+datas[2]+ " " +datas[3] +" "+ datas[4] + " "+datas[5])
     var sql = "UPDATE `board` SET `creator_id` = '" + datas[0] + "', `title` = '" + datas[1] + "', `content` = '" + datas[2] + "', `image_path` = " + "?" + " WHERE (`idx` = '" + datas[3] + "');";         // " , content=?, image_path=? WHERE idx=? AND passwd=?";
