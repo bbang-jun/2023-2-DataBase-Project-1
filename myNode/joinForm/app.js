@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var join = require('./routes/joinForm'); // app.js에 소스를 추가하여 joinForm.js 파일 연결
+var join = require('./routes/joinForm'); // 18p app.js에 소스를 추가하여 joinForm.js 파일 연결
 var board = require('./routes/board'); // 54p
 
 var app = express();
