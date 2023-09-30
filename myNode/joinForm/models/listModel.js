@@ -1,3 +1,4 @@
+// 58p
 var mysql = require('mysql');
 var connection = mysql.createConnection({
     connectionLimit: 5,
@@ -5,11 +6,12 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '@mrkdqudwns1',
     database: 'tutorial'
-  });
+});
 
 module.exports={getList(callback){
     connection.query('SELECT idx, creator_id, title, hit FROM board', (err, rows, fields)=>{
         if(err) throw err;
         callback(rows);
-    });
-}}
+        });
+    }
+}
