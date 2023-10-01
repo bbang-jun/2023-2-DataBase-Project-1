@@ -1,11 +1,12 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    connectionLimit: 5,
-    host: 'localhost',
-    user: 'root',
-    password: '@mrkdqudwns1',
-    database: 'tutorial'
+var mysql = require('mysql'); // 76p
+var connection = mysql.createConnection({ // 76p
+    connectionLimit: 5, // 76p
+    host: 'localhost', // 76p
+    user: 'root', // 76p
+    password: '@mrkdqudwns1', // 76p
+    database: 'tutorial' // 76p
 });
+
 var multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -22,19 +23,16 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-
-
-exports.getData = (idx, callback) => {
-    connection.query('SELECT idx, creator_id, title, content FROM board WHERE idx=?;', idx, (err, row, fields) => {
-        if (err) throw err;
-        callback(row);
+exports.getData = (idx, callback) => { // 76p
+    connection.query('SELECT idx, creator_id, title, content FROM board WHERE idx=?;', idx, (err, row, fields) => { // 76p
+        if (err) throw err; // 76p
+        callback(row); // 76p
     });
 };
 
 var fs = require('fs'); // 파일 시스템 모듈 추가
 
-exports.updateData = (datas, callback) =>{
-
+exports.updateData = (datas, callback) =>{ // 76p
     connection.query('SELECT image_path FROM board WHERE idx=?;', datas[3], (err, row, fields) => {
         const imagePath = row[0].image_path;
         fs.unlink('public/' + imagePath, (unlinkErr) => {
@@ -50,15 +48,11 @@ exports.updateData = (datas, callback) =>{
         
     });
 
-
     datas[5] = datas[5].replace("public\\", "");
-    console.log("=====================" + datas[0] +" "+datas[1]+" "+datas[2]+ " " +datas[3] +" "+ datas[4] + " "+datas[5])
-    var sql = "UPDATE `board` SET `creator_id` = '" + datas[0] + "', `title` = '" + datas[1] + "', `content` = '" + datas[2] + "', `image_path` = " + "?" + " WHERE (`idx` = '" + datas[3] + "');";         // " , content=?, image_path=? WHERE idx=? AND passwd=?";
-    //console.log("sql test:" + sql);
-    //var sql = "UPDATE `board` SET `creator_id` = 'aaa', `title` = 'aaa', `content` = 'aaa', `image_path` = 'aaaa' WHERE (`idx` = '37');"
+    var sql = "UPDATE `board` SET `creator_id` = '" + datas[0] + "', `title` = '" + datas[1] + "', `content` = '" + datas[2] + "', `image_path` = " + "?" + " WHERE (`idx` = '" + datas[3] + "');";
     connection.query(sql, [datas[5]], function (err, result) {
-        if (err) console.error("글 수정 중 에러 발생 err : " + err);
-        callback(result);
+        if (err) console.error("글 수정 중 에러 발생 err : " + err); // 76p
+        callback(result); // 76p
     });
 };
 
