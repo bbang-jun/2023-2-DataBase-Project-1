@@ -1,19 +1,18 @@
-var mysql = require('mysql');
-var connection = mysql.createConnection({
-    connectionLimit: 5,
-    host: 'localhost',
-    user: 'root',
-    password: '@mrkdqudwns1',
-    database: 'tutorial'
+var mysql = require('mysql'); // 70p
+var connection = mysql.createConnection({ // 70p
+    connectionLimit: 5, // 70p
+    host: 'localhost', // 70p
+    user: 'root', // 70p
+    password: '@mrkdqudwns1', // 70p
+    database: 'tutorial' // 70p
 });
 
 var fs = require('fs'); // 파일 시스템 모듈 추가
 
-module.exports = {
-    getData: function (idx, callback) {
-        connection.query('SELECT idx, creator_id, title, content, hit, image_path FROM board WHERE idx=?;', idx, (err, row, fields) => {
-            if (err) throw err;
-            callback(row);
+module.exports = {getData: function (idx, callback) { // 70p
+        connection.query('SELECT idx, creator_id, title, content, hit, image_path FROM board WHERE idx=?;', idx, (err, row, fields) => { // 70p
+            if (err) throw err; // 70p
+            callback(row); // 70p
         });
     },
 
