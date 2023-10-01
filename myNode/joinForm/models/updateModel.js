@@ -7,21 +7,19 @@ var connection = mysql.createConnection({ // 76p
     database: 'tutorial' // 76p
 });
 
-var multer = require('multer');
+var multer = require('multer'); // image upload 기능을 위한 수정
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/images'); // 이미지를 저장할 디렉터리 경로 설정
+var storage = multer.diskStorage({ // image upload 기능을 위한 수정
+    destination: function (req, file, cb) { // image upload 기능을 위한 수정
+        cb(null, 'public/images'); // image upload 기능을 위한 수정
     },
-    filename: function (req, file, cb) {
-        console.log("originalname :" + file.originalname);
-        var filename = file.originalname.replace("public\\", ""); // "public\\" 제거
-        console.log("filename :" + filename);
-        cb(null, Date.now() + '-' + filename);
-    }
+    filename: function (req, file, cb) { // image upload 기능을 위한 수정
+        console.log("originalname :" + file.originalname); // image upload 기능을 위한 수정
+        var filename = file.originalname.replace("public\\", ""); // image upload 기능을 위한 수정
+        console.log("filename :" + filename); // image upload 기능을 위한 수정
+        cb(null, Date.now() + '-' + filename); // image upload 기능을 위한 수정
+    } // image upload 기능을 위한 수정
 });
-
-var upload = multer({ storage: storage });
 
 exports.getData = (idx, callback) => { // 76p
     connection.query('SELECT idx, creator_id, title, content FROM board WHERE idx=?;', idx, (err, row, fields) => { // 76p
@@ -30,30 +28,30 @@ exports.getData = (idx, callback) => { // 76p
     });
 };
 
-var fs = require('fs'); // 파일 시스템 모듈 추가
+var fs = require('fs'); // image upload 기능을 위한 수정
 
 exports.updateData = (datas, callback) =>{ // 76p
-    connection.query('SELECT image_path FROM board WHERE idx=?;', datas[3], (err, row, fields) => {
-        const imagePath = row[0].image_path;
-        fs.unlink('public/' + imagePath, (unlinkErr) => {
-            if (unlinkErr) {
-                console.error("이미지 파일 삭제 실패: " + unlinkErr);
-                callback(unlinkErr); // 이미지 파일 삭제 실패 시 에러를 콜백으로 전달
+    connection.query('SELECT image_path FROM board WHERE idx=?;', datas[3], (err, row, fields) => { // image upload 기능을 위한 수정
+        const imagePath = row[0].image_path; // image upload 기능을 위한 수정
+        fs.unlink('public/' + imagePath, (unlinkErr) => { // image upload 기능을 위한 수정
+            if (unlinkErr) { // image upload 기능을 위한 수정
+                console.error("기존 이미지 삭제를 실패했습니다.: " + unlinkErr); // image upload 기능을 위한 수정
+                callback(unlinkErr); // image upload 기능을 위한 수정
             } else {
-                console.log("이미지 파일 삭제 성공");
+                console.log("기존 이미지 삭제를 성공하였습니다."); // image upload 기능을 위한 수정
             }
         });
-        //if (err) throw err;
-        //callback(row);
-        
     });
 
-    datas[5] = datas[5].replace("public\\", "");
-    var sql = "UPDATE `board` SET `creator_id` = '" + datas[0] + "', `title` = '" + datas[1] + "', `content` = '" + datas[2] + "', `image_path` = " + "?" + " WHERE (`idx` = '" + datas[3] + "');";
-    connection.query(sql, [datas[5]], function (err, result) {
+    datas[5] = datas[5].replace("public\\", ""); // image upload 기능을 위한 수정
+    var sql = "UPDATE `board` SET `creator_id` = '" + datas[0] + "', `title` = '" + datas[1] + "', `content` = '" + datas[2] 
+    + "', `image_path` = " + "?" + " WHERE (`idx` = '" + datas[3] + "');"; // image upload 기능을 위한 수정
+    connection.query(sql, [datas[5]], function (err, result) { // image upload 기능을 위한 수정
         if (err) console.error("글 수정 중 에러 발생 err : " + err); // 76p
         callback(result); // 76p
     });
 };
+
+var upload = multer({ storage: storage }); // image upload 기능을 위한 수정
 
 exports.uploadImage = upload.single('image'); // 이미지 업로드 미들웨어 설정

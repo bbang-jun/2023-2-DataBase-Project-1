@@ -10,13 +10,13 @@ module.exports = { // 69p
         }); // 69p
     }, // 69p
 
-    deletePost: function (req, res, next) {
-        var idx = req.body.idx;
-        readModel.deleteData(idx, (err) => {
-            if (err) {
-                res.status(500).send("글 삭제 실패");
-            } else {
-                res.redirect("/board"); // 삭제 후 리스트 페이지로 이동
+    deletePost: function (req, res, next) { // delete 기능을 위한 수정
+        var idx = req.body.idx; // delete 기능을 위한 수정
+        readModel.deleteData(idx, (err) => { // delete 기능을 위한 수정
+            if (err) { // delete 기능을 위한 수정
+                res.status(500).send("글 삭제를 실패하였습니다."); // delete 기능을 위한 수정
+            } else { // delete 기능을 위한 수정
+                res.redirect("/board/list/1"); // delete 기능을 위한 수정
             }
         });
     }

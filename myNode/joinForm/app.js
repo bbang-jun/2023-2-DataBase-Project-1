@@ -19,15 +19,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
-app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets'))); // 404 error 방지
-app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts'))); // 404 에러 방지
-
+app.use('/images', express.static(path.join(__dirname, 'public/images'))); // image upload 기능을 위한 수정
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/join', join); // app.js에 소스를 추가하여 joinForm.js 파일 연결
+app.use('/join', join); // 18p
 app.use('/board', board); // 54p
 
 // catch 404 and forward to error handler
@@ -45,5 +41,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use('/stylesheets', express.static(path.join(__dirname, 'public/stylesheets'))); // 404 error 방지
+app.use('/javascripts', express.static(path.join(__dirname, 'public/javascripts'))); // 404 에러 방지
 
 module.exports = app;

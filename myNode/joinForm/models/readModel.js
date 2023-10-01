@@ -17,30 +17,28 @@ module.exports = {getData: function (idx, callback) { // 70p
     },
 
     deleteData: function (idx, callback) {
-        connection.query('SELECT image_path FROM board WHERE idx=?', idx, (err, rows) => {
-            if (err) {
-                console.error("글 삭제 실패: " + err);
-                callback(err);
+        connection.query('SELECT image_path FROM board WHERE idx=?', idx, (err, rows) => { // image upload 기능을 위한 수정
+            if (err) { // image upload 기능을 위한 수정
+                console.error("image_path를 가져오는데 실패하였습니다. : " + err); // image upload 기능을 위한 수정
+                callback(err); // image upload 기능을 위한 수정
             } else {
                 if (rows.length > 0) {
                     const imagePath = rows[0].image_path;
 
-                    // 이미지 파일을 삭제합니다.
-                    fs.unlink('public/' + imagePath, (unlinkErr) => {
+                    fs.unlink('public/' + imagePath, (unlinkErr) => { // 기존 이미지 삭제
                         if (unlinkErr) {
-                            console.error("이미지 파일 삭제 실패: " + unlinkErr);
-                            callback(unlinkErr); // 이미지 파일 삭제 실패 시 에러를 콜백으로 전달
+                            console.error("이미지 삭제를 실패했습니다.: " + unlinkErr);
+                            callback(unlinkErr);
                         } else {
-                            console.log("이미지 파일 삭제 성공");
+                            console.log("이미지 삭제를 성공했습니다.");
 
-                            // 게시물을 삭제합니다.
                             connection.query('DELETE FROM board WHERE idx=?', idx, (deleteErr, result) => {
                                 if (deleteErr) {
                                     console.error("글 삭제 실패: " + deleteErr);
-                                    callback(deleteErr); // 게시물 삭제 실패 시 에러를 콜백으로 전달
+                                    callback(deleteErr); 
                                 } else {
                                     console.log("글 삭제 성공");
-                                    callback(null); // 삭제 성공 시 null을 콜백으로 전달
+                                    callback(null);
                                 }
                             });
                         }

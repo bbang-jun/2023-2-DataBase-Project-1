@@ -15,13 +15,13 @@ exports.updateForm=(req, res, next)=>{ // 75p
 exports.updateData = (req, res) => { // 75p
 
     // 이미지가 업로드되었을 때 이미지 경로를 포함하여 SQL 쿼리를 실행합니다.
-        updateModel.uploadImage(req, res, function(err) {
+        updateModel.uploadImage(req, res, function(err) { // image upload 기능을 위한 수정
             var idx = req.body.idx; // 75p
             var creator_id = req.body.creator_id; // 75p
             var title = req.body.title; // 75p
             var content = req.body.content; // 75p
             var passwd = req.body.passwd; // 75p
-            var image_path = req.file ? req.file.path : null; // 이미지 경로 가져오기
+            var image_path = req.file ? req.file.path : null; // image upload 기능을 위한 수정
             var datas = [creator_id, title, content, idx, passwd, image_path]; // 75p
             console.log("updateController data : ", datas); // 75p
             console.log(JSON.stringify(req.body)); // 75p
